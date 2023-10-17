@@ -1,11 +1,15 @@
-import './App.css';
+import { EpisodesList, Header } from './components';
 
-function App() {
+import './reset.css';
+import './index.css';
+
+export const App = () => {
   return (
     <>
-      <h1>Rick And Morty</h1>
+      <main className="main">
+        <Header />
+        <EpisodesList />
+      </main>
     </>
   );
-}
-
-export default App;
+};

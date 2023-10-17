@@ -1,0 +1,14 @@
+.single-episode {
+  margin-top: 1rem;
+}
+
+.single-episode__title {
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin-bottom: 2rem;
+}
+
+.single-episode__pictures {
+  max-width: 360px;
+  border-radius: 0.25rem;
+}
