@@ -14,18 +14,8 @@ export const Header = () => {
       {logIn && (
         <ul className={cls.nav__list}>
           <li className={cls.nav__item}>
-            <a href="/episodes" className={cls.nav__link}>
-              Эпизоды
-            </a>
-          </li>
-          <li className={cls.nav__item}>
             <a href="/characters" className={cls.nav__link}>
               Персонажи
-            </a>
-          </li>
-          <li className={cls.nav__item}>
-            <a href="/locations" className={cls.nav__link}>
-              Локации
             </a>
           </li>
           <li className={cls.nav__item}>

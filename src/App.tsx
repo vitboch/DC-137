@@ -1,4 +1,4 @@
-import { EpisodesList, Header } from './components';
+import { Characters, Header } from './components';
 
 import './reset.css';
 import './index.css';
@@ -8,7 +8,7 @@ export const App = () => {
     <>
       <main className="main">
         <Header />
-        <EpisodesList />
+        <Characters />
       </main>
     </>
   );

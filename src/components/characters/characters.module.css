@@ -1,3 +1,10 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
 .card {
   position: relative;
   flex: 0 1 calc(33.33% - 1rem);
