@@ -1,11 +1,15 @@
-import './App.css';
+import { Characters, Header } from './components';
 
-function App() {
+import './reset.css';
+import './index.css';
+
+export const App = () => {
   return (
     <>
-      <h1>Rick And Morty</h1>
+      <main className="main">
+        <Header />
+        <Characters />
+      </main>
     </>
   );
-}
-
-export default App;
+};

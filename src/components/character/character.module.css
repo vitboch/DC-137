@@ -1,0 +1,14 @@
+.character {
+  margin-top: 1rem;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin-bottom: 2rem;
+}
+
+.image {
+  max-width: 360px;
+  border-radius: 0.25rem;
+}
