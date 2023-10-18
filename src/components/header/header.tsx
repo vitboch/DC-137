@@ -10,10 +10,10 @@ import signOut from '../../auth/signOut';
 
 export const Header = () => {
   const user = useContext(AuthContext);
-  
+
   const handleSignout = () => {
     signOut();
-  }
+  };
 
   return (
     <header className={cls.header}>

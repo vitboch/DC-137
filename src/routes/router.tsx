@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
       },
       { path: 'signin', element: <SigninPage /> },
       { path: 'signup', element: <SignupPage /> },
-      { path: 'signout', element: <SignoutPage /> },      
+      { path: 'signout', element: <SignoutPage /> },
       {
         path: 'characters',
         element: <CharactersPage />

@@ -1,17 +1,23 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode
+} from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import initFirebase from '../services/initFirebase';
 import getDataFromFirestore from '../services/getDataFromFirestore';
 import firebase from 'firebase/compat/app';
 
 interface IUser {
-  user: firebase.User,
-  name: string
+  user: firebase.User;
+  name: string;
 }
 
 interface ContextProps {
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 const auth = getAuth(initFirebase);
@@ -27,7 +33,9 @@ export function AuthContextProvider({ children }: ContextProps) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const name = (await getDataFromFirestore('users', user.uid))?.result?.data()?.name;
+        const name = (
+          await getDataFromFirestore('users', user.uid)
+        )?.result?.data()?.name;
         setUser({ user: user as firebase.User, name });
       } else {
         setUser(null);
@@ -39,8 +47,8 @@ export function AuthContextProvider({ children }: ContextProps) {
   }, []);
 
   return (
-    <AuthContext.Provider value={ user }>
-      { loading ? <div>Loading...</div> : children }
+    <AuthContext.Provider value={user}>
+      {loading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
-  )
+  );
 }

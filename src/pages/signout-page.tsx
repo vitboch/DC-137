@@ -1,5 +1,3 @@
 export const SignoutPage = () => {
-  return (
-    <p>See you later!</p>
-  )
+  return <p>See you later!</p>;
 };

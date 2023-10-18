@@ -1,7 +1,5 @@
-import { AuthForm } from "../components/auth-form/auth-form";
+import { AuthForm } from '../components/auth-form/auth-form';
 
 export const SigninPage = () => {
-  return (
-    <AuthForm />
-  )
+  return <AuthForm />;
 };
