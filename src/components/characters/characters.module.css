@@ -10,6 +10,7 @@
   flex: 0 1 calc(33.33% - 1rem);
   overflow: hidden;
   border-radius: 0.25rem;
+  cursor: pointer;
 }
 
 .card:hover .card__pictures {
