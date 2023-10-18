@@ -1,15 +1,8 @@
-import { Characters, Header } from './components';
+import { RouterProvider } from 'react-router-dom';
+
+import { router } from './routes/router';
 
 import './reset.css';
 import './index.css';
 
-export const App = () => {
-  return (
-    <>
-      <main className="main">
-        <Header />
-        <Characters />
-      </main>
-    </>
-  );
-};
+export const App = () => <RouterProvider router={router} />;

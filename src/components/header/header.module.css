@@ -5,19 +5,19 @@
   margin-top: 1rem;
 }
 
-.nav__list {
+.nav {
   display: flex;
   gap: 1rem;
   list-style: none;
 }
 
-.nav__link {
+.link {
   color: var(--primary-color);
   font-family: sans-serif;
   text-decoration: none;
   transition: color 0.3s linear;
 }
 
-.nav__link:hover {
+.link:hover {
   color: #f85a40;
 }
