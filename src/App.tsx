@@ -7,11 +7,9 @@ import './index.css';
 import { AuthContextProvider } from './auth/AuthContext';
 
 export const App = () => {
-  return (
-    <>
-      <AuthContextProvider>
-        <RouterProvider router={router} />;
-      </AuthContextProvider>
-    </>
+  return (    
+    <AuthContextProvider>
+      <RouterProvider router={router} />;
+    </AuthContextProvider>
   );
 };
