@@ -1,3 +1,5 @@
+import { AuthForm } from '../components/auth-form/auth-form';
+
 export const SignupPage = () => {
-  return <div>SignupPage</div>;
+  return <AuthForm signUpFlag />;
 };
