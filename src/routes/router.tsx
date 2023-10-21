@@ -4,6 +4,7 @@ import { ErrorPage } from '../pages/error-page';
 import { MainPage } from '../pages/main-page';
 import { SigninPage } from '../pages/signin-page';
 import { SignupPage } from '../pages/signup-page';
+import { SignoutPage } from '../pages/signout-page.tsx';
 import { FavoritesPage } from '../pages/favorites-page';
 import { HistoryPage } from '../pages/history-page';
 import { CharactersPage } from '../pages/characters-page';
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       },
       { path: 'signin', element: <SigninPage /> },
       { path: 'signup', element: <SignupPage /> },
+      { path: 'signout', element: <SignoutPage /> },
       {
         path: 'characters',
         element: <CharactersPage />

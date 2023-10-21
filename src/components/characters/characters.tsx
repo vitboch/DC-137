@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import cls from './characters.module.css';
 import { ICharacter } from '../../types/types';
+import { Loader } from '../loader/loader';
 
 export const Characters = () => {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
@@ -19,21 +20,25 @@ export const Characters = () => {
 
   return (
     <>
-      <div className={cls.list}>
-        {characters.length > 0 &&
-          characters.map((character) => (
-            <div className={cls.card} key={character.id}>
-              <Link to={`/characters/${character.id}`}>
-                <img
-                  className={cls.card__pictures}
-                  src={character.image}
-                  alt=""
-                />
-                <div className={cls.card__name}>{character.name}</div>
-              </Link>
-            </div>
-          ))}
-      </div>
+      {characters.length > 0 ? (
+        <div className={cls.list}>
+          {characters.length > 0 &&
+            characters.map((character) => (
+              <div className={cls.card} key={character.id}>
+                <Link to={`/characters/${character.id}`}>
+                  <img
+                    className={cls.card__pictures}
+                    src={character.image}
+                    alt=""
+                  />
+                  <div className={cls.card__name}>{character.name}</div>
+                </Link>
+              </div>
+            ))}
+        </div>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };
