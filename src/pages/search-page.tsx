@@ -1,3 +1,9 @@
+import { Search } from '../components/search/search.tsx';
+
 export const SearchPage = () => {
-  return <div>SearchPage</div>;
+  return (
+    <div>
+      <Search />
+    </div>
+  );
 };
