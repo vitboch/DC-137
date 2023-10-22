@@ -11,6 +11,7 @@ import { CharactersPage } from '../pages/characters-page';
 import { CharacterPage } from '../pages/character-page';
 import { SearchPage } from '../pages/search-page.tsx';
 import { Header } from '../components';
+import { Footer } from '../components/footer/footer.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
       <div className="main">
         <Header />
         <Outlet />
+        <Footer />
       </div>
     ),
     children: [
