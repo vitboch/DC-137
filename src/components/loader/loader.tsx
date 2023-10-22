@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 
-export const Loader = () => {
+const Loader = () => {
   useEffect(() => {
     const unmountLoading = gsap.timeline({ paused: true });
     unmountLoading.to(
@@ -1932,3 +1932,5 @@ export const Loader = () => {
     </div>
   );
 };
+
+export default Loader;
