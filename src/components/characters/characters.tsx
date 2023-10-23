@@ -1,13 +1,38 @@
-import React from 'react';
+// import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ICharacter } from '../../types/types.ts';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { fetchCharacters } from '../../store/slices/characters';
+// import Loader from '../loader';
+import { ICharacter } from '../../types/types';
 import cls from './characters.module.css';
+import React from "react";
 
 interface Props {
   characters: ICharacter[];
 }
 
-export const Characters: React.FC<Props> = ({ characters }) => {
+const Characters: React.FC<Props> = ({ characters }) => {
+  // const dispatch = useDispatch();
+  // const characters: ICharacter[] = useSelector(
+  //   (state: any) => state.characters.characters
+  // );
+  // const status: string = useSelector((state: any) => state.characters.status);
+  // const error: string | null = useSelector(
+  //   (state: any) => state.characters.error
+  // );
+  //
+  // useEffect(() => {
+  //   dispatch(fetchCharacters() as any);
+  // }, [dispatch]);
+  //
+  // if (status === 'loading') {
+  //   return <Loader />;
+  // }
+  //
+  // if (status === 'failed') {
+  //   return <div>Error: {error}</div>;
+  // }
+
   return (
     <div className={cls.card__list}>
       {characters.map((character) => (
@@ -19,5 +44,8 @@ export const Characters: React.FC<Props> = ({ characters }) => {
         </div>
       ))}
     </div>
+
   );
 };
+
+export default Characters;

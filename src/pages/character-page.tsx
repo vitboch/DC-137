@@ -1,4 +1,4 @@
-import { Character } from '../components';
+import Character from '../components/character';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ICharacter } from '../types/types.ts';

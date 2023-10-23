@@ -5,8 +5,19 @@ import cls from './character.module.css';
 interface Props {
   character: ICharacter;
 }
+// import { useParams } from 'react-router-dom';
+// import { useCharacters } from '../../hooks/use-characters';
+// import { ICharacter } from '../../types/types';
+// import cls from './character.module.css';
+//
+// const Character = () => {
+//   const { id } = useParams<{ id: string }>();
+//   const { characters } = useCharacters();
+//   const character = characters.find(
+//     (character: ICharacter) => character.id === Number(id)
+//   );
 
-export const Character: React.FC<Props> = ({ character }) => {
+const Character: React.FC<Props> = ({ character }) => {
   return (
     <div className={cls.character}>
       <div className={cls.character__name}>{character.name}</div>
@@ -40,3 +51,5 @@ export const Character: React.FC<Props> = ({ character }) => {
     </div>
   );
 };
+
+export default Character;

@@ -1,19 +1,19 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
-import { ErrorPage } from '../pages/error-page';
-import { MainPage } from '../pages/main-page';
-import { SigninPage } from '../pages/signin-page';
-import { SignupPage } from '../pages/signup-page';
-import { SignoutPage } from '../pages/signout-page.tsx';
-import { FavoritesPage } from '../pages/favorites-page';
-import { HistoryPage } from '../pages/history-page';
-import { CharactersPage } from '../pages/characters-page';
-import { CharacterPage } from '../pages/character-page';
-import { SearchPage } from '../pages/search-page.tsx';
-import { Header } from '../components';
-import { Footer } from '../components/footer/footer.tsx';
+import { ErrorPage } from './pages/error-page';
+import { MainPage } from './pages/main-page';
+import { SigninPage } from './pages/signin-page';
+import { SignupPage } from './pages/signup-page';
+import { SignoutPage } from './pages/signout-page.tsx';
+import { FavoritesPage } from './pages/favorites-page';
+import { HistoryPage } from './pages/history-page';
+import { CharactersPage } from './pages/characters-page';
+import { CharacterPage } from './pages/character-page';
+import { SearchPage } from './pages/search-page';
+import Header from './components/header';
+import { Footer } from './components/footer/footer';
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     element: (
       <div className="main">
@@ -55,3 +55,5 @@ export const router = createBrowserRouter([
     ]
   }
 ]);
+
+export default router;
