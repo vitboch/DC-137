@@ -4,8 +4,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICharacter } from '../../types/types.ts';
 
 import cls from './search.module.css';
+import { Characters } from '../characters/characters.tsx';
+import { Button } from '../button/button.tsx';
 
-type Inputs = {
+type formInputs = {
   name: string;
   status: string;
   gender: string;
@@ -15,14 +17,14 @@ export const Search = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit, setValue, reset, setFocus } =
-    useForm<Inputs>();
+    useForm<formInputs>();
 
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const [suggestions, setSuggestions] = useState<ICharacter[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchCharacters = async ({ name, status, gender }: Inputs) => {
+  const fetchCharacters = async ({ name, status, gender }: formInputs) => {
     setError(null);
 
     if (!name && !status && !gender) {
@@ -66,7 +68,7 @@ export const Search = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<formInputs> = (data) => {
     fetchCharacters(data);
     navigate(
       `/search?name=${data.name}&status=${data.status}&gender=${data.gender}`
@@ -138,9 +140,9 @@ export const Search = () => {
               id="nameInput"
             />
             {suggestions.length > 0 && (
-              <ul className={cls.suggestions_list}>
+              <ul className={cls.suggestions__list}>
                 {suggestions.map((suggestion) => (
-                  <li key={suggestion.id} className={cls.suggestion_item}>
+                  <li key={suggestion.id} className={cls.suggestion__item}>
                     <Link to={`/characters/${suggestion.id}`}>
                       {suggestion.name}
                     </Link>
@@ -162,33 +164,18 @@ export const Search = () => {
             <option value="genderless">Без пола</option>
             <option value="unknown">Неизвестно</option>
           </select>
-          <button>Поиск</button>
-          <button type="button" onClick={handleReset}>
+          <Button variant={'primary'}>Поиск</Button>
+          <Button variant={'danger'} type="button" onClick={handleReset}>
             Сбросить
-          </button>
+          </Button>
         </form>
       </div>
 
       <div className={cls.list}>
-        {error ? (
-          <p>{error}</p>
-        ) : (
-          characters.map((character) => (
-            <div className={cls.card} key={character.id}>
-              <Link to={`/characters/${character.id}`}>
-                <img
-                  className={cls.card__pictures}
-                  src={character.image}
-                  alt=""
-                />
-                <div className={cls.card__name}>{character.name}</div>
-              </Link>
-            </div>
-          ))
-        )}
+        {error ? <p>{error}</p> : <Characters characters={characters} />}
+        {/*TODO: Не работает, даже если не найдено, появляется ошибка.*/}
+        {notFound && <p>Ничего не найдено!</p>}
       </div>
-
-      {notFound && <p>Ничего не найдено!</p>}
     </>
   );
 };

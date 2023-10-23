@@ -33,9 +33,6 @@ body {
 
 .section {
   flex: 1;
-  background-color: var(--secondary-color);
-  padding: 1rem;
-  border-radius: var(--border-radius);
 }
 
 .title {
@@ -54,4 +51,14 @@ select {
   background-clip: padding-box;
   border-radius: var(--border-radius);
   border: 1px solid #bdbdbd;
+}
+
+button:focus,
+select:focus,
+input:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #bdbdbd;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
 }

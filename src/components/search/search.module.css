@@ -1,6 +1,5 @@
 .search__form {
   background-color: white;
-  padding: 1rem;
   border-radius: var(--border-radius);
   display: flex;
   gap: 0.5rem;
@@ -15,7 +14,7 @@
   width: 100%;
 }
 
-.suggestions_list {
+.suggestions__list {
   position: absolute;
   top: 110%;
   left: 0;
@@ -26,11 +25,15 @@
   z-index: 9999;
 }
 
-.suggestion_item {
+.suggestion__item {
   padding: 0.5rem;
   cursor: pointer;
 }
 
-.suggestion_item:hover {
+.suggestion__item:hover {
   background-color: #f5f5f5;
+}
+
+.list {
+  margin-top: 1rem;
 }

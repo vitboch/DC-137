@@ -1,30 +1,42 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
-import { ICharacter } from '../../types/types';
-import { initialStateCharacter } from '../../types/initialStateCharacter';
-
+import React from 'react';
+import { ICharacter } from '../../types/types.ts';
 import cls from './character.module.css';
 
-export const Character = () => {
-  const { id } = useParams();
+interface Props {
+  character: ICharacter;
+}
 
-  const [character, setCharacter] = useState<ICharacter>(initialStateCharacter);
-
-  const fetchCharacter = async () => {
-    const data = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-    const json = await data.json();
-    setCharacter(json);
-  };
-
-  useEffect(() => {
-    fetchCharacter();
-  }, []);
-
+export const Character: React.FC<Props> = ({ character }) => {
   return (
     <div className={cls.character}>
-      <img src={character.image} alt="" />
-      <div className={cls.name}>{character.name}</div>
+      <div className={cls.character__name}>{character.name}</div>
+      <div className={cls.character__info}>
+        <img
+          className={cls.character__image}
+          src={character.image}
+          alt={character.name}
+        />
+        <div>
+          <div>
+            Name: <b>{character.name}</b>
+          </div>
+          <div>
+            Species: <b>{character.species}</b>
+          </div>
+          <div>
+            Status: <b>{character.status}</b>
+          </div>
+          <div>
+            Gender: <b>{character.gender}</b>
+          </div>
+          <div>
+            Origin name: <b>{character.origin.name}</b>
+          </div>
+          <div>
+            Location name: <b>{character.location.name}</b>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
