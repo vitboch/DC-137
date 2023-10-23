@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // import Loader from '../loader';
 import { ICharacter } from '../../types/types';
 import cls from './characters.module.css';
-import React from "react";
+import React from 'react';
 
 interface Props {
   characters: ICharacter[];
@@ -44,7 +44,6 @@ const Characters: React.FC<Props> = ({ characters }) => {
         </div>
       ))}
     </div>
-
   );
 };
 
