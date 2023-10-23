@@ -1,15 +1,16 @@
 import { RouterProvider } from 'react-router-dom';
-
-import { router } from './routes/router';
-
-import './reset.css';
-import './index.css';
-import { AuthContextProvider } from './auth/AuthContext';
+import { Provider } from 'react-redux';
+import router from './routes';
+import { store } from './store';
+import './firebase';
+import './styles/normalize.css';
+import './styles/reset.css';
+import './styles/index.css';
 
 export const App = () => {
   return (
-    <AuthContextProvider>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </AuthContextProvider>
+    </Provider>
   );
 };

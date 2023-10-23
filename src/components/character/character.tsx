@@ -1,30 +1,21 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import { useCharacters } from '../../hooks/use-characters';
 import { ICharacter } from '../../types/types';
-import { initialStateCharacter } from '../../types/initialStateCharacter';
-
 import cls from './character.module.css';
 
-export const Character = () => {
-  const { id } = useParams();
-
-  const [character, setCharacter] = useState<ICharacter>(initialStateCharacter);
-
-  const fetchCharacter = async () => {
-    const data = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-    const json = await data.json();
-    setCharacter(json);
-  };
-
-  useEffect(() => {
-    fetchCharacter();
-  }, []);
+const Character = () => {
+  const { id } = useParams<{ id: string }>();
+  const { characters } = useCharacters();
+  const character = characters.find(
+    (character: ICharacter) => character.id === Number(id)
+  );
 
   return (
     <div className={cls.character}>
-      <img src={character.image} alt="" />
+      <img src={character.image} alt={`image_${character.image}`} />
       <div className={cls.name}>{character.name}</div>
     </div>
   );
 };
+
+export default Character;

@@ -1,18 +1,19 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../auth/AuthContext';
-
 import { Link, NavLink } from 'react-router-dom';
 
-import { Logo } from '../logo/logo';
+import Logo from '../logo';
 
 import cls from './header.module.css';
-import signOut from '../../auth/signOut';
 
-export const Header = () => {
-  const user = useContext(AuthContext);
+import { useAuth } from '../../hooks/use-auth';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { removeUser } from '../../store/slices/user';
 
-  const handleSignout = () => {
-    signOut();
+const Header = () => {
+  const dispatch = useAppDispatch();
+  const { isAuth, email } = useAuth();
+
+  const handleSignOut = () => {
+    dispatch(removeUser());
   };
 
   return (
@@ -20,7 +21,7 @@ export const Header = () => {
       <Link to="/">
         <Logo />
       </Link>
-      {user ? (
+      {isAuth ? (
         <ul className={cls.nav}>
           <li>
             <NavLink to="/characters" className={cls.link}>
@@ -37,8 +38,9 @@ export const Header = () => {
               Избранное
             </NavLink>
           </li>
+          <li>{email}</li>
           <li>
-            <NavLink to="/signout" className={cls.link} onClick={handleSignout}>
+            <NavLink to="/signout" className={cls.link} onClick={handleSignOut}>
               Выйти
             </NavLink>
           </li>
@@ -60,3 +62,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;
