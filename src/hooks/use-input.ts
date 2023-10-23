@@ -7,19 +7,31 @@ interface IUseInput {
   error: string | null;
 }
 
-const useInput = (initialValue: string, required: boolean): IUseInput => {
+interface IInputValidation {
+  required: boolean;
+  regex: RegExp;
+  errMessage: string;
+}
+
+const useInput = (
+  initialValue: string,
+  validation: IInputValidation | null = null
+): IUseInput => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent) => {
-    setValue((e.target as HTMLInputElement).value);
+    const value = (e.target as HTMLInputElement).value;
+    setValue(value);
+    if (validation && !value.match(validation.regex))
+      setError(validation.errMessage);
+    else setError(null);
   };
 
   return {
     value,
     onBlur: (e) => {
-      if (!e.target.value && required) setError('Required field');
-      else setError(null);
+      if (!e.target.value && validation?.required) setError('Required field');
     },
     onChange: handleChange,
     error

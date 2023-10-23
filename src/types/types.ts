@@ -24,8 +24,9 @@ export interface ILocation {
 }
 
 export interface IFormProps {
-  title: string;
-  handleClick: (email: string, pass: string) => void;
+  signUp: boolean;
+  handleClick: (email: string, pass: string, name?: string) => void;
+  errMessage: string;
 }
 
 // export interface ICharacter {
@@ -35,13 +36,24 @@ export interface IFormProps {
 // }
 
 export interface ICharactersState {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   characters: any[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
-export interface IUserState {
-  email: string | null;
-  token: string | null;
-  id: string | null;
+export interface ISignInData {
+  email: string;
+  password: string;
 }
+
+export interface ISignUpData extends ISignInData {
+  name: string;
+}
+
+// export interface IUserState {
+//   email: string | null;
+//   token: string | null;
+//   id: string | null;
+//   name: string | null;
+// }

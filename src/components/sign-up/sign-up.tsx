@@ -1,28 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import useAuth from '../../hooks/use-auth';
 import Form from '../form';
-import { setUser } from '../../store/slices/user';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useEffect } from 'react';
 
 export const SignUp = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { signUpCall, errMessage, isAuth } = useAuth();
 
-  const handleRegister = (email: string, password: string) => {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        dispatch(
-          setUser({
-            email: user.email || '',
-            id: user.uid,
-            token: user.refreshToken
-          })
-        );
-        navigate('/characters');
-      })
-      .catch(console.error);
+  useEffect(() => {
+    isAuth && navigate('/');
+  });
+
+  const handleRegister = (email: string, password: string, name?: string) => {
+    name && signUpCall({ email, password, name });
   };
-
-  return <Form title="register" handleClick={handleRegister} />;
+  return <Form signUp handleClick={handleRegister} errMessage={errMessage} />;
 };
