@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICharacter } from '../../types/types.ts';
 
 import cls from './search.module.css';
-import { Characters } from '../characters/characters.tsx';
+import  Characters  from '../characters/characters.tsx';
 import { Button } from '../button/button.tsx';
 
 type formInputs = {
