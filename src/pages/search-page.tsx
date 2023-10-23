@@ -1,3 +1,9 @@
+import Search from '../components/search';
+
 export const SearchPage = () => {
-  return <div>SearchPage</div>;
+  return (
+    <section className="section">
+      <Search />
+    </section>
+  );
 };

@@ -40,6 +40,11 @@ const Header = () => {
           </li>
           <li>{email}</li>
           <li>
+            <NavLink to="/history" className={cls.link}>
+              История поиска
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/signout" className={cls.link} onClick={handleSignOut}>
               Выйти
             </NavLink>

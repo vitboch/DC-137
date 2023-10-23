@@ -1,4 +1,4 @@
-export interface ICharacterAll {
+export interface ICharacter {
   id: number;
   name: string;
   status: string;
@@ -28,11 +28,11 @@ export interface IFormProps {
   handleClick: (email: string, pass: string) => void;
 }
 
-export interface ICharacter {
-  id: number;
-  name: string;
-  image: string;
-}
+// export interface ICharacter {
+//   id: number;
+//   name: string;
+//   image: string;
+// }
 
 export interface ICharactersState {
   characters: any[];

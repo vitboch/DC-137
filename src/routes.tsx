@@ -1,16 +1,17 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
-import { ErrorPage } from './pages/error-page.tsx';
-import { MainPage } from './pages/main-page.tsx';
-import { SigninPage } from './pages/signin-page.tsx';
-import { SignupPage } from './pages/signup-page.tsx';
+import { ErrorPage } from './pages/error-page';
+import { MainPage } from './pages/main-page';
+import { SigninPage } from './pages/signin-page';
+import { SignupPage } from './pages/signup-page';
 import { SignoutPage } from './pages/signout-page.tsx';
-import { FavoritesPage } from './pages/favorites-page.tsx';
-import { HistoryPage } from './pages/history-page.tsx';
-import { CharactersPage } from './pages/characters-page.tsx';
-import { CharacterPage } from './pages/character-page.tsx';
-import { SearchPage } from './pages/search-page.tsx';
+import { FavoritesPage } from './pages/favorites-page';
+import { HistoryPage } from './pages/history-page';
+import { CharactersPage } from './pages/characters-page';
+import { CharacterPage } from './pages/character-page';
+import { SearchPage } from './pages/search-page';
 import Header from './components/header';
+import Footer from './components/footer';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       <div className="main">
         <Header />
         <Outlet />
+        <Footer />
       </div>
     ),
     children: [

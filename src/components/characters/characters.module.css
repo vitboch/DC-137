@@ -1,48 +1,37 @@
-.list {
+.card__list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
 }
 
-.card {
+.card__item {
   position: relative;
-  flex: 0 1 calc(33.33% - 1rem);
   overflow: hidden;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   cursor: pointer;
 }
 
-.card:hover .card__pictures {
-  transform: scale(1.1);
-}
-
-.card__pictures {
+.card__image {
   display: block;
   width: 100%;
-  border-radius: 0.25rem;
   height: 100%;
   max-height: 256px;
+  border-radius: var(--border-radius);
   object-fit: cover;
   overflow: hidden;
-  transition: all 0.6s linear;
+  transition: all 0.3s linear;
 }
 
-.card__episode,
-.card__name {
-  position: absolute;
-  padding: 0.25rem 0.5rem;
-  background-color: rgba(41, 46, 69, 0.8);
-  color: #fff;
-  border-radius: 0.25rem;
-}
-
-.card__episode {
-  top: 0.25rem;
-  right: 0.25rem;
+.card__image:hover {
+  transform: scale(1.1);
 }
 
 .card__name {
   bottom: 0.25rem;
   left: 0.25rem;
+  position: absolute;
+  padding: 0.25rem 0.5rem;
+  background-color: rgba(41, 46, 69, 0.8);
+  color: #fff;
+  border-radius: var(--border-radius);
 }

@@ -1,3 +1,3 @@
 export const HistoryPage = () => {
-  return <div>HistoryPage</div>;
+  return <section className="section">HistoryPage</section>;
 };
