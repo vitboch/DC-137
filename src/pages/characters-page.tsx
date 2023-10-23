@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Characters from '../components/characters';
+import Characters from "../components/characters";
 import { ICharacter } from '../types/types.ts';
 
 export const CharactersPage = () => {

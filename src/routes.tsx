@@ -11,7 +11,7 @@ import { CharactersPage } from './pages/characters-page';
 import { CharacterPage } from './pages/character-page';
 import { SearchPage } from './pages/search-page';
 import Header from './components/header';
-import { Footer } from './components/footer/footer';
+import Footer from './components/footer';
 
 const router = createBrowserRouter([
   {

@@ -1,4 +1,4 @@
-import { Search } from '../components/search/search.tsx';
+import Search from '../components/search';
 
 export const SearchPage = () => {
   return (
