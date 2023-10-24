@@ -1,19 +1,15 @@
 import { Link, NavLink } from 'react-router-dom';
-
 import Logo from '../logo';
-
 import cls from './header.module.css';
-
-import { useAuth } from '../../hooks/use-auth';
-import { useAppDispatch } from '../../hooks/redux-hooks';
-import { removeUser } from '../../store/slices/user';
+import { useAppSelector } from '../../hooks/redux-hooks';
+import useAuth from '../../hooks/use-auth';
 
 const Header = () => {
-  const dispatch = useAppDispatch();
-  const { isAuth, email } = useAuth();
+  const { user } = useAppSelector((state) => state.user);
+  const { signOutCall, isAuth } = useAuth();
 
   const handleSignOut = () => {
-    dispatch(removeUser());
+    signOutCall();
   };
 
   return (
@@ -38,14 +34,9 @@ const Header = () => {
               Избранное
             </NavLink>
           </li>
-          <li>{email}</li>
+          <li>👤{user?.displayName}</li>
           <li>
-            <NavLink to="/history" className={cls.link}>
-              История поиска
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/signout" className={cls.link} onClick={handleSignOut}>
+            <NavLink to="/" className={cls.link} onClick={handleSignOut}>
               Выйти
             </NavLink>
           </li>

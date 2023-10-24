@@ -3,6 +3,8 @@ import userReducer from './slices/user';
 import charactersReducer from './slices/characters';
 
 export const store = configureStore({
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
   reducer: {
     user: userReducer,
     characters: charactersReducer
