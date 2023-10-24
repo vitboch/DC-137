@@ -61,7 +61,6 @@ export default function useAuth() {
     } catch (err) {
       if (err instanceof FirebaseError) {
         setErrMessage(err.message);
-        console.log('here');
       }
       console.error(err);
     } finally {
