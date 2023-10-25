@@ -17,7 +17,7 @@ function History () {
   
   return (
     <div className={cls.history}>
-      { historyData.map(({ name, gender, status, timestamp }, i) => 
+      { historyData.sort((a, b) => +b.timestamp.toDate() - +a.timestamp.toDate()).map(({ name, gender, status, timestamp }, i) => 
         <div key={`record-${i}`} className={cls['history-record']}>
           <div className={`${cls['history-record__property']} ${cls['history-record__timestamp']}`}>{ timestamp?.toDate().toLocaleString() }</div>
           <div className={cls['history-record__data']}>
