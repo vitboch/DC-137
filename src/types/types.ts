@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Timestamp } from 'firebase/firestore';
 
 export interface ICharacter {
   id: number;
@@ -53,6 +54,15 @@ export interface ISignUpData extends ISignInData {
   name: string;
 }
 
+export interface ISearchParams {
+  name: string,
+  status: string,
+  gender: string,
+}
+
+export interface IHistoryRecord extends ISearchParams {
+  timestamp: Timestamp;
+}
 // export interface IUserState {
 //   email: string | null;
 //   token: string | null;

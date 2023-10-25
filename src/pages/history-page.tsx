@@ -1,3 +1,7 @@
+import History from "../components/history/history";
+
 export const HistoryPage = () => {
-  return <section className="section">HistoryPage</section>;
+  return <section className="section">
+    <History />
+  </section>;
 };

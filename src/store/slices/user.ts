@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from 'firebase/auth';
 
-const initialState: { user: User | null } = {
-  user: null
+const initialState: { 
+  user: User | null,
+  favorites: number[]
+} = {
+  user: null,
+  favorites: [],
 };
 
 const userSlice = createSlice({
@@ -14,6 +18,12 @@ const userSlice = createSlice({
     },
     removeUser(state) {
       state.user = null;
+    },
+    addToFavorites(state, action: PayloadAction<number>) {
+      state.favorites = [...state.favorites, action.payload];
+    },
+    removeFromFavorites(state, action: PayloadAction<number>) {
+      state.favorites = state.favorites.filter(e => e!== action.payload);
     }
   }
 });
