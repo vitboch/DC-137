@@ -6,7 +6,7 @@ import cls from './history.module.css';
 function History () {
   const { getFromHistory } = useHistory();
   const [ historyData, setHistoryData ] = useState<IHistoryRecord[]>([]);
-
+  
   useEffect(() => {
     const retrieveData = async () => {
       const data = await getFromHistory();
@@ -16,15 +16,17 @@ function History () {
   });
   
   return (
-    <>
-      { historyData.map((el, i) => 
+    <div className={cls.history}>
+      { historyData.map(({ name, gender, status, timestamp }, i) => 
         <div key={`record-${i}`} className={cls['history-record']}>
-          <div>{ el.timestamp?.toDate().toLocaleString() }</div>
-          { el.name && <div>Name: { el.name }</div> }
-          { el.gender && <div>Gender: { el.gender }</div> }
-          { el.status && <div>Status: { el.status }</div> }
+          <div className={`${cls['history-record__property']} ${cls['history-record__timestamp']}`}>{ timestamp?.toDate().toLocaleString() }</div>
+          <div className={cls['history-record__data']}>
+            { name && <div className={cls['history-record__property']}><span className={cls['history-record__label']}>Name:</span>{ name }</div> }
+            { gender && <div className={cls['history-record__property']}><span className={cls['history-record__label']}>Gender:</span>{ gender }</div> }
+            { status && <div className={cls['history-record__property']}><span className={cls['history-record__label']}>Status:</span>{ status }</div> }
+          </div>
         </div>) }
-    </>
+    </div>
   )
 }
 
