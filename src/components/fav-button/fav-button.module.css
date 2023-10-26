@@ -1,0 +1,31 @@
+:root {
+  --bg-color: rgba(41, 46, 69, 0.8);
+}
+
+.fav-button {
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: var(--bg-color);
+  line-height: normal;
+}
+
+.fav-button:focus,
+.fav-button:active {
+  border: none;
+  outline: none;
+  background-color: var(--bg-color);
+  box-shadow: none;
+}

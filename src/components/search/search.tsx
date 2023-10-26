@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICharacter } from '../../types/types.ts';
-import { useHistory }  from '../../hooks';
+import { useHistory } from '../../hooks';
 
 import cls from './search.module.css';
 import Characters from '../characters/characters.tsx';
@@ -73,9 +73,7 @@ export const Search = () => {
 
   const onSubmit: SubmitHandler<formInputs> = ({ name, status, gender }) => {
     fetchCharacters({ name, status, gender });
-    navigate(
-      `/search?name=${name}&status=${status}&gender=${gender}`
-    );
+    navigate(`/search?name=${name}&status=${status}&gender=${gender}`);
     addToHistory({ name, status, gender });
   };
 

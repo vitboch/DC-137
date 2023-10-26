@@ -13,6 +13,7 @@ export const CharactersPage = () => {
 
   useEffect(() => {
     fetchCharacters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

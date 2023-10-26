@@ -1,7 +1,7 @@
 .history {
   display: flex;
   flex-direction: column;
-  gap: 1rem;  
+  gap: 1rem;
   padding: 1rem 2rem;
   max-width: 50rem;
 }
@@ -32,6 +32,6 @@
 }
 
 .history-record__label {
-  font-weight: 200;  
+  font-weight: 200;
   padding-right: 0.5rem;
 }
