@@ -21,28 +21,28 @@ const Header = () => {
         <ul className={cls.nav}>
           <li>
             <NavLink to="/characters" className={cls.link}>
-            Characters
+              Characters
             </NavLink>
           </li>
           <li>
             <NavLink to="/search" className={cls.link}>
-            Search
+              Search
             </NavLink>
           </li>
           <li>
             <NavLink to="/favorites" className={cls.link}>
-            Favorites
+              Favorites
             </NavLink>
           </li>
           <li>
             <NavLink to="/history" className={cls.link}>
-            History
+              History
             </NavLink>
           </li>
           <li>👤{user?.displayName}</li>
           <li>
             <NavLink to="/" className={cls.link} onClick={handleSignOut}>
-            Log out
+              Log out
             </NavLink>
           </li>
         </ul>
@@ -50,12 +50,12 @@ const Header = () => {
         <ul className={cls.nav}>
           <li>
             <NavLink to="/signin" className={cls.link}>
-            Sign in
+              Sign in
             </NavLink>
           </li>
           <li>
             <NavLink to="/signup" className={cls.link}>
-            Sign up
+              Sign up
             </NavLink>
           </li>
         </ul>

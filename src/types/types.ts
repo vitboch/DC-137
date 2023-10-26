@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface ICharacter {
   id: number;
   name: string;
@@ -57,3 +59,7 @@ export interface ISignUpData extends ISignInData {
 //   id: string | null;
 //   name: string | null;
 // }
+
+export interface IProtectedRouteProps {
+  children: ReactNode;
+}

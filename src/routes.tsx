@@ -12,6 +12,7 @@ import { CharacterPage } from './pages/character-page';
 import { SearchPage } from './pages/search-page';
 import Header from './components/header';
 import Footer from './components/footer';
+import ProtectedRoute from './hoc/protected-route.tsx';
 
 const router = createBrowserRouter([
   {
@@ -42,11 +43,19 @@ const router = createBrowserRouter([
       },
       {
         path: 'favorites',
-        element: <FavoritesPage />
+        element: (
+          <ProtectedRoute>
+            <FavoritesPage />
+          </ProtectedRoute>
+        )
       },
       {
         path: 'history',
-        element: <HistoryPage />
+        element: (
+          <ProtectedRoute>
+            <HistoryPage />
+          </ProtectedRoute>
+        )
       },
       {
         path: 'search',
