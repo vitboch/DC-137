@@ -21,23 +21,28 @@ const Header = () => {
         <ul className={cls.nav}>
           <li>
             <NavLink to="/characters" className={cls.link}>
-              Персонажи
+            Characters
             </NavLink>
           </li>
           <li>
             <NavLink to="/search" className={cls.link}>
-              Поиск
+            Search
             </NavLink>
           </li>
           <li>
             <NavLink to="/favorites" className={cls.link}>
-              Избранное
+            Favorites
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/history" className={cls.link}>
+            History
             </NavLink>
           </li>
           <li>👤{user?.displayName}</li>
           <li>
             <NavLink to="/" className={cls.link} onClick={handleSignOut}>
-              Выйти
+            Log out
             </NavLink>
           </li>
         </ul>
@@ -45,12 +50,12 @@ const Header = () => {
         <ul className={cls.nav}>
           <li>
             <NavLink to="/signin" className={cls.link}>
-              Вход
+            Sign in
             </NavLink>
           </li>
           <li>
             <NavLink to="/signup" className={cls.link}>
-              Регистрация
+            Sign up
             </NavLink>
           </li>
         </ul>
