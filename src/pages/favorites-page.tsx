@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Characters from '../components/characters';
-import { useAppSelector } from '../hooks/redux-hooks';
 import { ICharacter } from '../types/types';
 import { useEffect, useState } from 'react';
 import Loader from '../components/loader';
+import { useFavorites } from '../hooks/use-favorites';
 
 export const FavoritesPage = () => {
-  const { favorites } = useAppSelector(({ userData }) => userData);
   const [isLoading, setIsLoading] = useState(false);
   const [characters, setCharacters] = useState<ICharacter[]>([]);
+  const { favorites } = useFavorites();
 
   const fetchCharacters = async () => {
     setIsLoading(true);
@@ -17,14 +18,19 @@ export const FavoritesPage = () => {
       );
       const json = await data.json();
       setCharacters(json);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchCharacters();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setCharacters(
+      characters.filter((character) => favorites?.includes(character.id))
+    );
+  }, [favorites]);
 
   return (
     <section className="section">

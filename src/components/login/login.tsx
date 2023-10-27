@@ -7,11 +7,11 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 const Login = () => {
   const navigate = useNavigate();
   const { signInCall, errMessage } = useAuth();
-  const { user } = useAppSelector(({ userData }) => userData)
+  const { user } = useAppSelector(({ userData }) => userData);
 
   useEffect(() => {
     if (user) navigate('/');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLogin = (email: string, password: string) => {

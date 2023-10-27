@@ -24,39 +24,51 @@ export const addCharacterToFavorites = createAsyncThunk<
   void,
   number,
   { state: IState }
->('user/addCharacterToFavorites', async (characterId, { getState }) => {
-  try {
-    const {
-      userData: { user }
-    } = getState();
-    if (user?.uid) {
-      await updateDoc(doc(db, 'favorites', user.uid), {
-        characters: arrayUnion(characterId)
-      });
+>(
+  'user/addCharacterToFavorites',
+  async (characterId, { getState, dispatch }) => {
+    try {
+      const {
+        userData: { user }
+      } = getState();
+      if (user?.uid) {
+        await updateDoc(doc(db, 'favorites', user.uid), {
+          characters: arrayUnion(characterId)
+        });
+        dispatch(
+          userDataSlice.actions.addCharacterToLocalFavorites(characterId)
+        );
+      }
+    } catch (error) {
+      throw new Error('Failed to update user favorites');
     }
-  } catch (error) {
-    throw new Error('Failed to update user favorites');
   }
-});
+);
 
 export const removeCharacterFromFavorites = createAsyncThunk<
   void,
   number,
   { state: IState }
->('user/removeCharacterFromFavorites', async (characterId, { getState }) => {
-  try {
-    const {
-      userData: { user }
-    } = getState();
-    if (user?.uid) {
-      await updateDoc(doc(db, 'favorites', user.uid), {
-        characters: arrayRemove(characterId)
-      });
+>(
+  'user/removeCharacterFromFavorites',
+  async (characterId, { getState, dispatch }) => {
+    try {
+      const {
+        userData: { user }
+      } = getState();
+      if (user?.uid) {
+        await updateDoc(doc(db, 'favorites', user.uid), {
+          characters: arrayRemove(characterId)
+        });
+        dispatch(
+          userDataSlice.actions.removeCharacterFromLocalFavorites(characterId)
+        );
+      }
+    } catch (error) {
+      throw new Error('Failed to update user favorites');
     }
-  } catch (error) {
-    throw new Error('Failed to update user favorites');
   }
-});
+);
 
 export const checkAuthStatus = createAsyncThunk(
   'user/checkAuthStatus',
@@ -100,7 +112,10 @@ const userDataSlice = createSlice({
       state.user = null;
     },
     addCharacterToLocalFavorites(state, action: PayloadAction<number>) {
-      state.favorites = [...(state.favorites as number[]), action.payload];
+      state.favorites = [
+        ...(state.favorites?.length ? (state.favorites as number[]) : []),
+        action.payload
+      ];
     },
     removeCharacterFromLocalFavorites(state, action: PayloadAction<number>) {
       state.favorites = state.favorites?.filter((el) => el !== action.payload);

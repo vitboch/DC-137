@@ -1,27 +1,21 @@
 import React from 'react';
 import cls from './fav-button.module.css';
-import { useDispatch } from 'react-redux';
-import {
-  addCharacterToFavorites,
-  removeCharacterFromFavorites,
-  addCharacterToLocalFavorites,
-  removeCharacterFromLocalFavorites
-} from '../../store/slices/userData';
-import { AppDispatch } from '../../store';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useFavorites } from '../../hooks/use-favorites';
 
 const FavButton: React.FC<{ id: number }> = ({ id }) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const isFavorite = useAppSelector(
-    ({ userData }) => userData.favorites?.includes(id)
-  );
+  const {
+    callAddCharacterToFavorites,
+    callRemoveCharacterToFavorites,
+    favorites
+  } = useFavorites();
+
+  const isFavorite = favorites?.includes(id);
+
   const handleClick = () => {
     if (!isFavorite) {
-      dispatch(addCharacterToFavorites(id));
-      dispatch(addCharacterToLocalFavorites(id));
+      callAddCharacterToFavorites(id);
     } else {
-      dispatch(removeCharacterFromFavorites(id));
-      dispatch(removeCharacterFromLocalFavorites(id));
+      callRemoveCharacterToFavorites(id);
     }
   };
 
