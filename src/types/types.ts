@@ -38,10 +38,19 @@ export interface IFormProps {
 // }
 
 export interface ICharactersState {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  characters: any[];
+  characters: {
+    info: ICharactersInfoState;
+    results: ICharacter[];
+  };
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+}
+
+export interface ICharactersInfoState {
+  count: number;
+  pages: number;
+  next: string;
+  prev: string;
 }
 
 export interface ISignInData {
