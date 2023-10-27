@@ -3,19 +3,27 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState: ICharactersState = {
-  characters: [],
+  characters: {
+    info: {
+      count: 0,
+      pages: 0,
+      next: '',
+      prev: ''
+    },
+    results: []
+  },
   status: 'idle',
   error: null
 };
 
 export const fetchCharacters = createAsyncThunk(
   'characters/fetchCharacters',
-  async () => {
+  async (page: number) => {
     try {
       const response = await axios.get(
-        'https://rickandmortyapi.com/api/character'
+        `https://rickandmortyapi.com/api/character/?page=${page}`
       );
-      return response.data.results;
+      return response.data;
     } catch (error) {
       throw new Error('Failed to fetch characters');
     }

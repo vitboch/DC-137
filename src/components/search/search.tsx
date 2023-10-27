@@ -7,6 +7,7 @@ import { useHistory } from '../../hooks';
 import cls from './search.module.css';
 import Characters from '../characters/characters.tsx';
 import Button from '../button';
+import Pagination from '../pagination/pagination.tsx';
 
 type formInputs = {
   name: string;
@@ -15,6 +16,8 @@ type formInputs = {
 };
 
 export const Search = () => {
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit, setValue, reset, setFocus } =
@@ -27,9 +30,11 @@ export const Search = () => {
 
   const { addToHistory } = useHistory();
 
-  const fetchCharacters = async ({ name, status, gender }: formInputs) => {
+  const fetchCharacters = async (
+    { name, status, gender }: formInputs,
+    page: number
+  ) => {
     setError(null);
-
     if (!name && !status && !gender) {
       setError('Введите хотя бы один параметр поиска');
       setCharacters([]);
@@ -39,15 +44,18 @@ export const Search = () => {
 
     try {
       const response = await fetch(
-        `https://rickandmortyapi.com/api/character/?name=${name}&status=${status}&gender=${gender}`
+        `https://rickandmortyapi.com/api/character/?name=${name}&status=${status}&gender=${gender}&page=${page}`
       );
 
       const data = await response.json();
+      setCount(data.info.count);
       setCharacters(data.results);
       setNotFound(data.results.length === 0);
     } catch (error) {
       setError('Произошла ошибка. Пожалуйста, попробуйте еще раз.');
       setCharacters([]);
+      setCount(0);
+      setPage(1);
       setNotFound(false);
     }
   };
@@ -72,8 +80,10 @@ export const Search = () => {
   };
 
   const onSubmit: SubmitHandler<formInputs> = ({ name, status, gender }) => {
-    fetchCharacters({ name, status, gender });
-    navigate(`/search?name=${name}&status=${status}&gender=${gender}`);
+    fetchCharacters({ name, status, gender }, 1);
+    navigate(
+      `/search?name=${name}&status=${status}&gender=${gender}&page=1`
+    );
     addToHistory({ name, status, gender });
   };
 
@@ -83,22 +93,22 @@ export const Search = () => {
 
   useEffect(() => {
     setFocus('name');
-    // Извлекаем query параметры из URL
     const searchParams = new URLSearchParams(location.search);
     const name = searchParams.get('name') || '';
     const status = searchParams.get('status') || '';
     const gender = searchParams.get('gender') || '';
 
     if (name !== '' || status !== '' || gender !== '') {
-      // Устанавливаем значения полей формы в соответствии с query параметрами
       setValue('name', name);
       setValue('status', status);
       setValue('gender', gender);
 
-      // Получаем данные при загрузке страницы
-      fetchCharacters({ name, status, gender });
+      fetchCharacters({ name, status, gender }, page);
+      navigate(
+        `/search?name=${name}&status=${status}&gender=${gender}&page=${page}`
+      );
     }
-  }, [location, setFocus, setValue]);
+  }, [location.search, page]);
 
   const handleReset = () => {
     reset();
@@ -173,7 +183,23 @@ export const Search = () => {
       </div>
 
       <div className={cls.list}>
-        {error ? <p>{error}</p> : <Characters characters={characters} />}
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          <>
+            <Pagination
+              currentPage={page}
+              total={count}
+              limit={20}
+              onPageChange={(page: number) => {
+                const searchParams = new URLSearchParams(location.search);
+                searchParams.set('page', String(page));
+                setPage(page);
+              }}
+            />
+            <Characters characters={characters} />
+          </>
+        )}
         {/*TODO: Не работает, даже если не найдено, появляется ошибка.*/}
         {notFound && <p>Ничего не найдено!</p>}
       </div>
