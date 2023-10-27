@@ -39,11 +39,6 @@ const Header = () => {
               History
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/history" className={cls.link}>
-              История
-            </NavLink>
-          </li>
           <li>👤{user?.displayName}</li>
           <li>
             <NavLink to="/" className={cls.link} onClick={handleSignOut}>
