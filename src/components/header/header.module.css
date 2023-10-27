@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.link {
+  color: var(--primary-color);
+  font-family: sans-serif;
+  text-decoration: none;
+  transition: color 0.3s linear;
+}
+
+.link:hover {
+  color: #f85a40;
+}
+
+.profile {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

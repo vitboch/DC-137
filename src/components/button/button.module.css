@@ -1,0 +1,52 @@
+.button {
+  display: block;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s ease;
+}
+
+.button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button.primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.button.primary:hover {
+  background-color: #0069d9;
+}
+
+.button.secondary {
+  background-color: #ffd400;
+  color: #fff;
+}
+
+.button.secondary:hover {
+  background-color: #ffd50f;
+}
+
+.button.success {
+  background-color: #8dcd3f;
+  color: #fff;
+}
+.button.success:hover {
+  background-color: #5c8529;
+}
+
+.button.danger {
+  background-color: #ff6347;
+  color: #fff;
+}
+
+.button.danger:hover {
+  background-color: #f54829;
+}

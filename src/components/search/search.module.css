@@ -1,0 +1,39 @@
+.search__form {
+  background-color: white;
+  border-radius: var(--border-radius);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.text__field {
+  flex: 1;
+  position: relative;
+}
+
+.text__field > input {
+  width: 100%;
+}
+
+.suggestions__list {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  z-index: 9999;
+}
+
+.suggestion__item {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.suggestion__item:hover {
+  background-color: #f5f5f5;
+}
+
+.list {
+  margin-top: 1rem;
+}

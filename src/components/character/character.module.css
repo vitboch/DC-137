@@ -1,0 +1,20 @@
+.character {
+  display: grid;
+}
+
+.character__name {
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin-bottom: 2rem;
+}
+
+.character__info {
+  display: flex;
+  gap: 2rem;
+  align-items: start;
+}
+
+.character__image {
+  max-width: 360px;
+  border-radius: 0.25rem;
+}
