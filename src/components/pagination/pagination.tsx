@@ -69,7 +69,7 @@ const Pagination = ({
   total,
   limit,
   onPageChange
-}: PaginationProps)=> {
+}: PaginationProps) => {
   const pagesCount = Math.ceil(total / limit);
   const pagesCut = getPagesCut({ pagesCount, pagesCutCount: 3, currentPage });
   const pages = range(pagesCut.start, pagesCut.end);

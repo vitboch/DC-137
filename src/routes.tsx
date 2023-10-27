@@ -13,15 +13,14 @@ import { SearchPage } from './pages/search-page';
 import Header from './components/header';
 import Footer from './components/footer';
 import ProtectedRoute from './hoc/protected-route.tsx';
+import PageLayout from './components/page-layout';
 
 const router = createBrowserRouter([
   {
     element: (
-      <div className="main">
-        <Header />
+      <PageLayout head={<Header />} footer={<Footer />}>
         <Outlet />
-        <Footer />
-      </div>
+      </PageLayout>
     ),
     children: [
       {

@@ -81,9 +81,7 @@ export const Search = () => {
 
   const onSubmit: SubmitHandler<formInputs> = ({ name, status, gender }) => {
     fetchCharacters({ name, status, gender }, 1);
-    navigate(
-      `/search?name=${name}&status=${status}&gender=${gender}&page=1`
-    );
+    navigate(`/search?name=${name}&status=${status}&gender=${gender}&page=1`);
     addToHistory({ name, status, gender });
   };
 
