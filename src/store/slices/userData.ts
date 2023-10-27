@@ -5,6 +5,7 @@ import {
   getFirestore,
   doc,
   updateDoc,
+  setDoc,
   getDoc,
   arrayUnion,
   arrayRemove
@@ -32,7 +33,7 @@ export const addCharacterToFavorites = createAsyncThunk<
         userData: { user }
       } = getState();
       if (user?.uid) {
-        await updateDoc(doc(db, 'favorites', user.uid), {
+        await setDoc(doc(db, 'favorites', user.uid), {
           characters: arrayUnion(characterId)
         });
         dispatch(
