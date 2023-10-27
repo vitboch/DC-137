@@ -1,4 +1,6 @@
 import { ReactNode } from 'react';
+import { Timestamp } from 'firebase/firestore';
+import { User } from 'firebase/auth';
 
 export interface ICharacter {
   id: number;
@@ -38,10 +40,19 @@ export interface IFormProps {
 // }
 
 export interface ICharactersState {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  characters: any[];
+  characters: {
+    info: ICharactersInfoState;
+    results: ICharacter[];
+  };
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+}
+
+export interface ICharactersInfoState {
+  count: number;
+  pages: number;
+  next: string;
+  prev: string;
 }
 
 export interface ISignInData {
@@ -53,13 +64,27 @@ export interface ISignUpData extends ISignInData {
   name: string;
 }
 
-// export interface IUserState {
-//   email: string | null;
-//   token: string | null;
-//   id: string | null;
-//   name: string | null;
-// }
+export interface ISearchParams {
+  name: string;
+  status: string;
+  gender: string;
+}
+
+export interface IHistoryRecord extends ISearchParams {
+  timestamp: Timestamp;
+}
 
 export interface IProtectedRouteProps {
   children: ReactNode;
+}
+
+export interface IUserState {
+  user: User | null;
+  favorites: number[] | undefined;
+  status: string;
+}
+
+export interface IState {
+  userData: IUserState;
+  characters: ICharactersState;
 }

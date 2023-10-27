@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
+  signOut
 } from 'firebase/auth';
-import { setUser, removeUser } from '../store/slices/user';
+import { setUser, removeUser } from '../store/slices/userData';
 import initFirebase from '../services/initFirebase';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { ISignInData, ISignUpData } from '../types/types';
@@ -17,22 +16,23 @@ export default function useAuth() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [errMessage, setErrMessage] = useState('');
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth] = useState(false);
 
   const auth = getAuth(initFirebase);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(setUser({ user }));
-        setIsAuth(true);
-      } else {
-        dispatch(removeUser());
-        setIsAuth(false);
-      }
-      return unsubscribe;
-    });
-  });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       dispatch(setUser({ user }));
+  //       setIsAuth(true);
+  //     } else {
+  //       dispatch(removeUser());
+  //       setIsAuth(false);
+  //     }
+  //     return unsubscribe;
+  //   });
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const signInCall = async ({ email, password }: ISignInData) => {
     setIsLoading(true);

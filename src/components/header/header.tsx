@@ -5,8 +5,8 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import useAuth from '../../hooks/use-auth';
 
 const Header = () => {
-  const { user } = useAppSelector((state) => state.user);
-  const { signOutCall, isAuth } = useAuth();
+  const { user } = useAppSelector((state) => state.userData);
+  const { signOutCall } = useAuth();
 
   const handleSignOut = () => {
     signOutCall();
@@ -17,7 +17,7 @@ const Header = () => {
       <Link to="/">
         <Logo />
       </Link>
-      {isAuth ? (
+      {user ? (
         <ul className={cls.nav}>
           <li>
             <NavLink to="/characters" className={cls.link}>
