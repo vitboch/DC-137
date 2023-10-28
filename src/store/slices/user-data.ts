@@ -150,8 +150,8 @@ const userDataSlice = createSlice({
       })
       .addMatcher(
         isAnyOf(
-          getFavorites.pending, 
-          checkAuthStatus.pending, 
+          getFavorites.pending,
+          checkAuthStatus.pending,
           authStateCallback.pending
         ),
         (state) => {
@@ -160,8 +160,8 @@ const userDataSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          getFavorites.rejected, 
-          checkAuthStatus.rejected, 
+          getFavorites.rejected,
+          checkAuthStatus.rejected,
           authStateCallback.rejected
         ),
         (state) => {

@@ -19,7 +19,7 @@ export default function useAuth() {
   const [isAuth] = useState(false);
 
   const auth = getAuth(initFirebase);
-  
+
   const signInCall = async ({ email, password }: ISignInData) => {
     setIsLoading(true);
     try {

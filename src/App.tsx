@@ -12,13 +12,20 @@ import { AppDispatch } from './store';
 import { ReactNode } from 'react';
 import { useAppSelector } from './hooks/redux-hooks';
 import Loader from './components/loader';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { status } = useAppSelector(({ userData }) => userData);
 
   useLayoutEffect(() => {
-    dispatch(checkAuthStatus());    
+    const unsubscribePromise = dispatch(checkAuthStatus());
+    return () => {
+      unsubscribePromise
+        .then(unwrapResult)
+        .then((unsubscribe) => unsubscribe())
+        .catch((err: unknown) => console.error(err));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
