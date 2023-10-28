@@ -15,7 +15,7 @@ import Loader from './components/loader';
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { status } = useAppSelector((state) => state.userData);
+  const { status } = useAppSelector(({ userData }) => userData);
 
   useEffect(() => {
     dispatch(checkAuthStatus());
