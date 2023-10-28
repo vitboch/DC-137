@@ -5,9 +5,9 @@ import cls from './page-layout.module.css';
 const PageLayout: React.FC<IPageLayoutProps> = ({ head, footer, children }) => {
   return (
     <div className={cls.PageLayout}>
-      <div className={cls.head}>{head}</div>
-      <div className={cls.center}>{children}</div>
-      <div className={cls.footer}>{footer}</div>
+      <header className={cls.head}>{head}</header>
+      <main className={cls.center}>{children}</main>
+      <footer className={cls.footer}>{footer}</footer>
     </div>
   );
 };

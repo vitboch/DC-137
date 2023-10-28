@@ -1,8 +1,8 @@
-.container {
+.footer__up {
   height: 3em;
 }
 
-.footer {
+.footer__down {
   position: fixed;
   margin: 0 auto;
   bottom: 0;
@@ -16,14 +16,14 @@
   -o-transition: all 1s ease;
   z-index: 999;
 }
-.footer:hover {
+.footer__down:hover {
   height: 5em;
   -webkit-transition: all 1s ease;
   -o-transition: all 1s ease;
   transition: all 1s ease;
 }
 
-.footer_center {
+.footer__center {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -36,12 +36,12 @@
   align-items: center;
 }
 
-.footer h3 {
+.footer__title {
   margin: 0;
   padding: 0;
   color: var(--secondary-color);
 }
 
-.footer p {
+.footer__descr {
   color: var(--secondary-color);
 }
