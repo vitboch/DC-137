@@ -88,3 +88,9 @@ export interface IState {
   userData: IUserState;
   characters: ICharactersState;
 }
+
+export interface IPageLayoutProps {
+  head: ReactNode;
+  footer: ReactNode;
+  children: ReactNode;
+}

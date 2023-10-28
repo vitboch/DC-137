@@ -1,13 +1,8 @@
-import React, { memo, ReactNode } from 'react';
+import React, { memo } from 'react';
+import { IPageLayoutProps } from '../../types/types';
 import cls from './page-layout.module.css';
 
-interface PageLayoutProps {
-  head: ReactNode;
-  footer: ReactNode;
-  children: ReactNode;
-}
-
-const PageLayout: React.FC<PageLayoutProps> = ({ head, footer, children }) => {
+const PageLayout: React.FC<IPageLayoutProps> = ({ head, footer, children }) => {
   return (
     <div className={cls.PageLayout}>
       <div className={cls.head}>{head}</div>
