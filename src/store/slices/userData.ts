@@ -1,5 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction, isAllOf } from '@reduxjs/toolkit';
-import { User } from 'firebase/auth';
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+  isAnyOf
+} from '@reduxjs/toolkit';
+import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
 import initFirebase from '../../services/initFirebase';
 import {
   getFirestore,
@@ -8,15 +13,14 @@ import {
   setDoc,
   getDoc,
   arrayUnion,
-  arrayRemove,
+  arrayRemove
 } from 'firebase/firestore';
 import { IUserState, IState } from '../../types/types';
-import { onAuthStateChanged, getAuth } from 'firebase/auth';
 
 const initialState: IUserState = {
   user: getAuth().currentUser,
   favorites: [],
-  status: 'idle'
+  status: 'loading'
 };
 
 const db = getFirestore(initFirebase);
@@ -43,8 +47,8 @@ export const addCharacterToFavorites = createAsyncThunk<
           await setDoc(docRef, {
             characters: arrayUnion(characterId)
           });
-        };
-        
+        }
+
         dispatch(
           userDataSlice.actions.addCharacterToLocalFavorites(characterId)
         );
@@ -84,13 +88,18 @@ export const checkAuthStatus = createAsyncThunk(
   'user/checkAuthStatus',
   async (_, { dispatch }) => {
     const auth = getAuth(initFirebase);
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {      
-      if (user) {
-        dispatch(setUser({ user }));
-        dispatch(getFavorites());
-      }
-      return unsubscribe;
-    });
+    const unsubscribe = onAuthStateChanged(auth, (user) =>
+      dispatch(authStateCallback(user))
+    );
+    return unsubscribe;
+  }
+);
+
+export const authStateCallback = createAsyncThunk(
+  'user/authStateCallback',
+  async (user: User | null, { dispatch }) => {
+    dispatch(setUser(user));
+    await dispatch(getFavorites());
   }
 );
 
@@ -115,8 +124,8 @@ const userDataSlice = createSlice({
   name: 'userData',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<{ user: User }>) {
-      state.user = action.payload.user;
+    setUser(state, action: PayloadAction<User | null>) {
+      state.user = action.payload;
     },
     removeUser(state) {
       state.user = null;
@@ -129,56 +138,32 @@ const userDataSlice = createSlice({
     },
     removeCharacterFromLocalFavorites(state, action: PayloadAction<number>) {
       state.favorites = state.favorites?.filter((el) => el !== action.payload);
-    },
-
+    }
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(addCharacterToFavorites.pending, (state) => {
-      //   // state.status = 'loading';
-      // })
-      .addCase(addCharacterToFavorites.fulfilled, (state) => {
-        state.status = 'succeeded';
-      })
-      .addCase(addCharacterToFavorites.rejected, (state) => {
-        state.status = 'failed';
-      })
-      // .addCase(removeCharacterFromFavorites.pending, (state) => {
-      //   // state.status = 'loading';
-      // })
-      .addCase(removeCharacterFromFavorites.fulfilled, (state) => {
-        state.status = 'succeeded';
-      })
-      .addCase(removeCharacterFromFavorites.rejected, (state) => {
-        state.status = 'failed';
-      })
-      .addCase(getFavorites.pending, (state) => {
-        state.status = 'loading';
-      })
       .addCase(getFavorites.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.favorites = action.payload as number[] | undefined;
       })
-      .addCase(getFavorites.rejected, (state) => {
-        state.status = 'failed';
-      })
-      .addCase(checkAuthStatus.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(checkAuthStatus.rejected, (state) => {
-        state.status = 'failed';
+      .addCase(authStateCallback.fulfilled, (state) => {
+        state.status = 'succeeded';
       })
       .addMatcher(
-        isAllOf(userDataSlice.actions.setUser, getFavorites.fulfilled, checkAuthStatus.fulfilled), (state) => {
-          state.status = 'succeeded';
+        isAnyOf(getFavorites.pending, checkAuthStatus.pending, authStateCallback.pending),
+        (state) => {
+          state.status = 'loading';
+        }
+      )
+      .addMatcher(
+        isAnyOf(getFavorites.rejected, checkAuthStatus.rejected, authStateCallback.rejected),
+        (state) => {
+          state.status = 'failed';
         }
       );
   }
 });
 
-export const {
-  setUser,
-  removeUser,  
-} = userDataSlice.actions;
+export const { setUser, removeUser } = userDataSlice.actions;
 
 export default userDataSlice.reducer;

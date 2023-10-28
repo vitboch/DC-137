@@ -6,7 +6,7 @@ import './firebase';
 import './styles/normalize.css';
 import './styles/reset.css';
 import './styles/index.css';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { checkAuthStatus } from './store/slices/userData';
 import { AppDispatch } from './store';
 import { ReactNode } from 'react';
@@ -17,7 +17,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { status } = useAppSelector(({ userData }) => userData);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(checkAuthStatus());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

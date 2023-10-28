@@ -37,7 +37,8 @@ export default function useAuth() {
   const signInCall = async ({ email, password }: ISignInData) => {
     setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      dispatch(setUser(user));
     } catch (err) {
       if (err instanceof FirebaseError) setErrMessage(err.message);
       console.error(err);
@@ -57,7 +58,7 @@ export default function useAuth() {
       await updateProfile(user, {
         displayName: name
       });
-      dispatch(setUser({ user: { ...user, displayName: name } }));
+      dispatch(setUser({ ...user, displayName: name }));
     } catch (err) {
       if (err instanceof FirebaseError) {
         setErrMessage(err.message);
