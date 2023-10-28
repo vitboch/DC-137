@@ -30,16 +30,16 @@ export const addCharacterToFavorites = createAsyncThunk<
   number,
   { state: IState }
 >(
-  'user/addCharacterToFavorites',
+  'userData/addCharacterToFavorites',
   async (characterId, { getState, dispatch }) => {
     try {
       const {
         userData: { user }
       } = getState();
-      if (user?.uid) {
+      if (user) {
         const docRef = doc(db, 'favorites', user.uid);
-        const docSnap = getDoc(docRef);
-        if ((await docSnap).exists()) {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
           await updateDoc(docRef, {
             characters: arrayUnion(characterId)
           });
@@ -53,7 +53,7 @@ export const addCharacterToFavorites = createAsyncThunk<
           userDataSlice.actions.addCharacterToLocalFavorites(characterId)
         );
       }
-    } catch (error) {
+    } catch (error: unknown) {
       throw new Error('Failed to update user favorites');
     }
   }
@@ -64,7 +64,7 @@ export const removeCharacterFromFavorites = createAsyncThunk<
   number,
   { state: IState }
 >(
-  'user/removeCharacterFromFavorites',
+  'userData/removeCharacterFromFavorites',
   async (characterId, { getState, dispatch }) => {
     try {
       const {
@@ -78,14 +78,14 @@ export const removeCharacterFromFavorites = createAsyncThunk<
           userDataSlice.actions.removeCharacterFromLocalFavorites(characterId)
         );
       }
-    } catch (error) {
+    } catch (error: unknown) {
       throw new Error('Failed to update user favorites');
     }
   }
 );
 
 export const checkAuthStatus = createAsyncThunk(
-  'user/checkAuthStatus',
+  'userData/checkAuthStatus',
   async (_, { dispatch }) => {
     const auth = getAuth(initFirebase);
     const unsubscribe = onAuthStateChanged(auth, (user) =>
@@ -96,7 +96,7 @@ export const checkAuthStatus = createAsyncThunk(
 );
 
 export const authStateCallback = createAsyncThunk(
-  'user/authStateCallback',
+  'userData/authStateCallback',
   async (user: User | null, { dispatch }) => {
     dispatch(setUser(user));
     await dispatch(getFavorites());
@@ -104,7 +104,7 @@ export const authStateCallback = createAsyncThunk(
 );
 
 export const getFavorites = createAsyncThunk(
-  'user/getFavorites',
+  'userData/getFavorites',
   async (_, { getState }) => {
     try {
       const {
@@ -114,7 +114,7 @@ export const getFavorites = createAsyncThunk(
         const result = await getDoc(doc(db, 'favorites', user.uid));
         return result.data()?.characters;
       }
-    } catch (error) {
+    } catch (error: unknown) {
       throw new Error('Failed to fetch user favorites');
     }
   }
@@ -143,20 +143,27 @@ const userDataSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getFavorites.fulfilled, (state, action) => {
-        state.status = 'succeeded';
         state.favorites = action.payload as number[] | undefined;
       })
       .addCase(authStateCallback.fulfilled, (state) => {
         state.status = 'succeeded';
       })
       .addMatcher(
-        isAnyOf(getFavorites.pending, checkAuthStatus.pending, authStateCallback.pending),
+        isAnyOf(
+          getFavorites.pending, 
+          checkAuthStatus.pending, 
+          authStateCallback.pending
+        ),
         (state) => {
           state.status = 'loading';
         }
       )
       .addMatcher(
-        isAnyOf(getFavorites.rejected, checkAuthStatus.rejected, authStateCallback.rejected),
+        isAnyOf(
+          getFavorites.rejected, 
+          checkAuthStatus.rejected, 
+          authStateCallback.rejected
+        ),
         (state) => {
           state.status = 'failed';
         }

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {
   addCharacterToFavorites,
   removeCharacterFromFavorites
-} from '../store/slices/userData';
+} from '../store/slices/user-data';
 import { AppDispatch } from '../store';
 
 export function useFavorites() {

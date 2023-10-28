@@ -7,7 +7,7 @@ import './styles/normalize.css';
 import './styles/reset.css';
 import './styles/index.css';
 import { useLayoutEffect } from 'react';
-import { checkAuthStatus } from './store/slices/userData';
+import { checkAuthStatus } from './store/slices/user-data';
 import { AppDispatch } from './store';
 import { ReactNode } from 'react';
 import { useAppSelector } from './hooks/redux-hooks';
@@ -18,7 +18,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
   const { status } = useAppSelector(({ userData }) => userData);
 
   useLayoutEffect(() => {
-    dispatch(checkAuthStatus());
+    dispatch(checkAuthStatus());    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
