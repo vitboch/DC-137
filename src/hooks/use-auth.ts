@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut
 } from 'firebase/auth';
-import { setUser, removeUser } from '../store/slices/userData';
+import { setUser, removeUser } from '../store/slices/user-data';
 import initFirebase from '../services/initFirebase';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { ISignInData, ISignUpData } from '../types/types';
@@ -20,25 +20,12 @@ export default function useAuth() {
 
   const auth = getAuth(initFirebase);
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       dispatch(setUser({ user }));
-  //       setIsAuth(true);
-  //     } else {
-  //       dispatch(removeUser());
-  //       setIsAuth(false);
-  //     }
-  //     return unsubscribe;
-  //   });
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   const signInCall = async ({ email, password }: ISignInData) => {
     setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      dispatch(setUser(user));
+    } catch (err: unknown) {
       if (err instanceof FirebaseError) setErrMessage(err.message);
       console.error(err);
     } finally {
@@ -57,8 +44,8 @@ export default function useAuth() {
       await updateProfile(user, {
         displayName: name
       });
-      dispatch(setUser({ user: { ...user, displayName: name } }));
-    } catch (err) {
+      dispatch(setUser({ ...user, displayName: name }));
+    } catch (err: unknown) {
       if (err instanceof FirebaseError) {
         setErrMessage(err.message);
       }
@@ -73,7 +60,7 @@ export default function useAuth() {
     try {
       await signOut(auth);
       dispatch(removeUser());
-    } catch (err) {
+    } catch (err: unknown) {
       if (err instanceof FirebaseError) setErrMessage(err.message);
       console.error(err);
     } finally {
