@@ -24,7 +24,7 @@ export const fetchCharacters = createAsyncThunk(
         `https://rickandmortyapi.com/api/character/?page=${page}`
       );
       return response.data;
-    } catch (error) {
+    } catch (error: unknown) {
       throw new Error('Failed to fetch characters');
     }
   }

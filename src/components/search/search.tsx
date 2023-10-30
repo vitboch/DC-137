@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICharacter } from '../../types/types.ts';
+import { useHistory } from '../../hooks';
 
 import cls from './search.module.css';
 import Characters from '../characters/characters.tsx';
@@ -26,6 +27,8 @@ export const Search = () => {
   const [suggestions, setSuggestions] = useState<ICharacter[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const { addToHistory } = useHistory();
 
   const fetchCharacters = async (
     { name, status, gender }: formInputs,
@@ -76,12 +79,10 @@ export const Search = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<formInputs> = (data) => {
-    fetchCharacters(data, 1);
-    navigate(
-      `/search?name=${data.name}&status=${data.status}&gender=${data.gender}&page=1`
-    );
-    // TODO: Здесь надо логику добавления в историю.
+  const onSubmit: SubmitHandler<formInputs> = ({ name, status, gender }) => {
+    fetchCharacters({ name, status, gender }, 1);
+    navigate(`/search?name=${name}&status=${status}&gender=${gender}&page=1`);
+    addToHistory({ name, status, gender });
   };
 
   const onChangeSuggestions = (value: string) => {

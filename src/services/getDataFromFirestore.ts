@@ -9,7 +9,7 @@ export default async function getDocument(collection: string, id: string) {
 
   try {
     result = await getDoc(docRef);
-  } catch (e) {
+  } catch (e: unknown) {
     error = e;
   }
 

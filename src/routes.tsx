@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createHashRouter, Outlet } from 'react-router-dom';
 
 import { ErrorPage } from './pages/error-page';
 import { MainPage } from './pages/main-page';
@@ -13,15 +13,14 @@ import { SearchPage } from './pages/search-page';
 import Header from './components/header';
 import Footer from './components/footer';
 import ProtectedRoute from './hoc/protected-route.tsx';
+import PageLayout from './components/page-layout';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     element: (
-      <div className="main">
-        <Header />
+      <PageLayout head={<Header />} footer={<Footer />}>
         <Outlet />
-        <Footer />
-      </div>
+      </PageLayout>
     ),
     children: [
       {

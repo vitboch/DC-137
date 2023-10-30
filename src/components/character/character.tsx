@@ -1,6 +1,7 @@
 import React from 'react';
 import { ICharacter } from '../../types/types.ts';
 import cls from './character.module.css';
+import FavButton from '../fav-button';
 
 interface Props {
   character: ICharacter;
@@ -17,34 +18,36 @@ interface Props {
 //     (character: ICharacter) => character.id === Number(id)
 //   );
 
-const Character: React.FC<Props> = ({ character }) => {
+const Character: React.FC<Props> = ({
+  character: { name, image, id, species, status, gender, origin, location }
+}) => {
   return (
     <div className={cls.character}>
-      <div className={cls.character__name}>{character.name}</div>
+      <div className={cls.character__name}>{name}</div>
       <div className={cls.character__info}>
-        <img
-          className={cls.character__image}
-          src={character.image}
-          alt={character.name}
-        />
+        <div style={{ position: 'relative' }}>
+          <img className={cls.character__image} src={image} alt={name} />
+          <FavButton id={id} />
+        </div>
+
         <div>
           <div>
-            Name: <b>{character.name}</b>
+            Name: <b>{name}</b>
           </div>
           <div>
-            Species: <b>{character.species}</b>
+            Species: <b>{species}</b>
           </div>
           <div>
-            Status: <b>{character.status}</b>
+            Status: <b>{status}</b>
           </div>
           <div>
-            Gender: <b>{character.gender}</b>
+            Gender: <b>{gender}</b>
           </div>
           <div>
-            Origin name: <b>{character.origin.name}</b>
+            Origin name: <b>{origin.name}</b>
           </div>
           <div>
-            Location name: <b>{character.location.name}</b>
+            Location name: <b>{location.name}</b>
           </div>
         </div>
       </div>
