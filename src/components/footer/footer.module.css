@@ -6,8 +6,8 @@
   position: fixed;
   margin: 0 auto;
   bottom: 0;
-  max-width: 1024px;
-  width: 100%;
+  left: 0;
+  width: 100vw;
   height: 2em;
   overflow: hidden;
   background-color: var(--primary-color);
