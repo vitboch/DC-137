@@ -33,6 +33,7 @@ body {
 
 .section {
   flex: 1;
+  padding: 0 1rem;
 }
 
 .section__inner {
@@ -68,4 +69,8 @@ input:focus {
   border-color: #bdbdbd;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+
+a {
+  color: #0087e9;
 }
