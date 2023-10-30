@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useHistory } from '../../hooks';
 import { IHistoryRecord } from '../../types/types';
@@ -13,7 +14,7 @@ function History() {
       if (data) setHistoryData(data);
     };
     retrieveData();
-  });
+  }, []);
 
   return (
     <div className={cls.history}>
