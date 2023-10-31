@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ICharacter } from '../types/types.ts';
 import Characters from '../components/characters';
 
-export const MainPage = () => {
+export const MainPage: React.FC = () => {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

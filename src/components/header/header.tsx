@@ -1,9 +1,9 @@
 import { Link, NavLink } from 'react-router-dom';
 import Logo from '../logo';
-import cls from './header.module.css';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import useAuth from '../../hooks/use-auth';
-import { UserProfilePic } from './user-profile-pic';
+import UserProfilePic from '../user-profile-pic';
+import cls from './header.module.css';
 
 const Header = () => {
   const { user } = useAppSelector((state) => state.userData);

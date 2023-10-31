@@ -1,17 +1,5 @@
-import React, { useState } from 'react';
-
-interface IUseInput {
-  value: string;
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  onChange: (e: React.ChangeEvent) => void;
-  error: string | null;
-}
-
-interface IInputValidation {
-  required: boolean;
-  regex: RegExp;
-  errMessage: string;
-}
+import { useState } from 'react';
+import { IInputValidation, IUseInput } from '../types/types';
 
 const useInput = (
   initialValue: string,

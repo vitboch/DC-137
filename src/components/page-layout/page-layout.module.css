@@ -3,7 +3,9 @@
   min-height: 100vh;
   margin: 6rem auto;
   background: #fff;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-box-shadow: 0 0 15px 5px #0000003b;
   box-shadow: 0 0 15px 5px #0000003b;
   padding: 2rem 2.5rem;
   border-radius: 1rem;

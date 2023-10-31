@@ -1,11 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Characters from '../components/characters';
 import { ICharacter } from '../types/types';
 import { useEffect, useState } from 'react';
 import Loader from '../components/loader';
 import { useFavorites } from '../hooks/use-favorites';
 
-export const FavoritesPage = () => {
+export const FavoritesPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const { favorites } = useFavorites();

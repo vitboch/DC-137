@@ -33,12 +33,6 @@ export interface IFormProps {
   errMessage: string;
 }
 
-// export interface ICharacter {
-//   id: number;
-//   name: string;
-//   image: string;
-// }
-
 export interface ICharactersState {
   characters: {
     info: ICharactersInfoState;
@@ -93,4 +87,51 @@ export interface IPageLayoutProps {
   head: ReactNode;
   footer: ReactNode;
   children: ReactNode;
+}
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  variant: 'primary' | 'secondary' | 'success' | 'danger';
+}
+
+export interface CharacterProps {
+  character: ICharacter;
+}
+
+export interface CharactersProps {
+  characters: ICharacter[];
+}
+
+export interface PaginationItemProps {
+  page: string | number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+  isDisabled: boolean;
+}
+
+export interface PagesCutParams {
+  pagesCount: number;
+  pagesCutCount: number;
+  currentPage: number;
+}
+
+export interface PaginationProps {
+  currentPage: number;
+  total: number;
+  limit: number;
+  onPageChange: (page: number) => void;
+}
+
+export interface IUseInput {
+  value: string;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent) => void;
+  error: string | null;
+}
+
+export interface IInputValidation {
+  required: boolean;
+  regex: RegExp;
+  errMessage: string;
 }
