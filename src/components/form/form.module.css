@@ -17,12 +17,14 @@
 }
 
 .form__label-wrapper {
+  position: relative;
   height: 1.5rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
   justify-content: flex-start;
   align-items: baseline;
+  width: 100%;
 }
 
 .form__error {
@@ -37,6 +39,7 @@
 }
 
 .form__field {
+  position: relative;
   display: flex;
   width: 100%;
   gap: 1rem;
@@ -45,7 +48,7 @@
 }
 
 .form__input {
-  width: calc(100% - 2rem);
+  width: 100%;
 }
 
 .form__input_error {
@@ -53,6 +56,11 @@
 }
 
 .form__error-indicator {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+
   display: inline-block;
   height: 0.5rem;
   width: 0.5rem;
@@ -67,7 +75,7 @@
 }
 
 .form__error-message {
-  width: calc(100% - 2rem);
+  width: 100%;
   border: 2px solid rgb(255, 91, 91);
   background-color: #ff000042;
   font-weight: 600;
@@ -76,5 +84,5 @@
 
 .form__button {
   cursor: pointer;
-  width: calc(100% - 2rem);
+  width: 100%;
 }
