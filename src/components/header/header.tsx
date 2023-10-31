@@ -44,8 +44,12 @@ const Header = () => {
               </li>
             </ul>
             <div className={cls['header__user-section']}>
-              
-              <span className={cls['profile']} ><UserProfilePic /><span className={cls['profile__user-name']}>{ user?.displayName }</span></span>
+              <span className={cls['profile']}>
+                <UserProfilePic />
+                <span className={cls['profile__user-name']}>
+                  {user?.displayName}
+                </span>
+              </span>
               <span>
                 <NavLink to="/" className={cls.link} onClick={handleSignOut}>
                   Log out
@@ -54,18 +58,32 @@ const Header = () => {
             </div>
           </>
         ) : (
-          <ul className={cls.nav}>
-            <li>
-              <NavLink to="/signin" className={cls.link}>
-                Sign in
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/signup" className={cls.link}>
-                Sign up
-              </NavLink>
-            </li>
-          </ul>
+          <>
+            <ul className={cls.nav}>
+              <li>
+                <NavLink to="/characters" className={cls.link}>
+                  Characters
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/search" className={cls.link}>
+                  Search
+                </NavLink>
+              </li>
+            </ul>
+            <div className={cls['header__user-section']}>
+              <span>
+                <NavLink to="/signin" className={cls.link}>
+                  Sign in
+                </NavLink>
+              </span>
+              <span>
+                <NavLink to="/signup" className={cls.link}>
+                  Sign up
+                </NavLink>
+              </span>
+            </div>
+          </>
         )}
       </div>
     </header>

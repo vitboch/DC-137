@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect } from 'react';
 import { IFormProps } from '../../types/types';
 import { useInput } from '../../hooks';
 import cls from './form.module.css';
 import { useState } from 'react';
+import Button from '../button';
 
 const Form: FC<IFormProps> = ({ signUp, handleClick, errMessage }) => {
   const email = useInput('', {
@@ -29,18 +31,29 @@ const Form: FC<IFormProps> = ({ signUp, handleClick, errMessage }) => {
   });
 
   const [areErrors, setAreErrors] = useState(false);
+  const [passwordMismatch, setPasswordMismatch] = useState(true);
 
   useEffect(() => {
-    signUp &&
+    if (signUp) {
       setAreErrors(
-        [
-          email.error,
-          name.error,
-          password.error,
-          passwordAgain.value !== password.value
-        ].some((e) => !!e === true)
+        [email.error, name.error, password.error, passwordMismatch].some(
+          (e) => !!e
+        )
       );
+    } else {
+      setAreErrors(!(email.value && password.value));
+    }
   }, [email, name, password, passwordAgain, signUp]);
+
+  useEffect(() => {
+    if (
+      password.value &&
+      passwordAgain.value &&
+      password.value === passwordAgain.value
+    ) {
+      setPasswordMismatch(false);
+    } else setPasswordMismatch(true);
+  }, [password.value, passwordAgain.value]);
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -137,10 +150,9 @@ const Form: FC<IFormProps> = ({ signUp, handleClick, errMessage }) => {
               <label className={cls.form__label} htmlFor="passwordAgainInput">
                 Password again
               </label>
-              {passwordAgain.value &&
-                password.value !== passwordAgain.value && (
-                  <div className={cls.form__error}>{'Password mismatch'}</div>
-                )}
+              {passwordAgain.value && passwordMismatch && (
+                <div className={cls.form__error}>{'Password mismatch'}</div>
+              )}
             </div>
             <div className={cls.form__field}>
               <input
@@ -163,14 +175,14 @@ const Form: FC<IFormProps> = ({ signUp, handleClick, errMessage }) => {
           </>
         )}
 
-        <button
-          className={cls.form__button}
+        <Button
           type="submit"
           onClick={handleSubmit}
           disabled={areErrors}
+          variant={'primary'}
         >
           {signUp ? 'Sign Up' : 'Login'}
-        </button>
+        </Button>
         {errMessage && (
           <div className={cls['form__error-message']}>{errMessage}</div>
         )}

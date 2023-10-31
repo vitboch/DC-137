@@ -22,8 +22,8 @@ const Character: React.FC<Props> = ({
   character: { name, image, id, species, status, gender, origin, location }
 }) => {
   return (
-    <div className={cls.character}>
-      <div className={cls.character__name}>{name}</div>
+    <article className={cls.character}>
+      <h2 className={cls.character__name}>{name}</h2>
       <div className={cls.character__info}>
         <div style={{ position: 'relative' }}>
           <img className={cls.character__image} src={image} alt={name} />
@@ -51,7 +51,7 @@ const Character: React.FC<Props> = ({
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
