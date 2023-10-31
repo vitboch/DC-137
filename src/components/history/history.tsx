@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useHistory } from '../../hooks';
 import { IHistoryRecord } from '../../types/types';
 import cls from './history.module.css';
 
-function History() {
+const History: React.FC = () => {
   const { getFromHistory } = useHistory();
   const [historyData, setHistoryData] = useState<IHistoryRecord[]>([]);
 
@@ -51,6 +50,6 @@ function History() {
         ))}
     </div>
   );
-}
+};
 
 export default History;

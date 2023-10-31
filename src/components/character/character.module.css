@@ -1,16 +1,21 @@
 .character {
+  display: -ms-grid;
   display: grid;
 }
 
 .character__name {
-  font-size: 1.25rem;
-  font-weight: normal;
-  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
 }
 
 .character__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 2rem;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: start;
 }
 

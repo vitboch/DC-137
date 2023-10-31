@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ICharacter } from '../../types/types';
+import { CharactersProps } from '../../types/types';
 import cls from './characters.module.css';
 import React from 'react';
 import FavButton from '../fav-button';
 
-interface Props {
-  characters: ICharacter[];
-}
-
-const Characters: React.FC<Props> = ({ characters }) => {
+const Characters: React.FC<CharactersProps> = ({ characters }) => {
   return (
     <div className={cls.card__list}>
       {characters.map(({ id, image, name }) => (

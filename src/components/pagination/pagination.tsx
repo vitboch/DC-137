@@ -1,21 +1,13 @@
+import {
+  PagesCutParams,
+  PaginationItemProps,
+  PaginationProps
+} from '../../types/types';
 import cls from './pagination.module.css';
-
-interface PaginationItemProps {
-  page: string | number;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-  isDisabled: boolean;
-}
 
 const range = (start: number, end: number): number[] => {
   return [...Array(end - start).keys()].map((el) => el + start);
 };
-
-interface PagesCutParams {
-  pagesCount: number;
-  pagesCutCount: number;
-  currentPage: number;
-}
 
 const getPagesCut = ({
   pagesCount,
@@ -56,13 +48,6 @@ const PaginationItem = ({
     </div>
   );
 };
-
-interface PaginationProps {
-  currentPage: number;
-  total: number;
-  limit: number;
-  onPageChange: (page: number) => void;
-}
 
 const Pagination = ({
   currentPage,

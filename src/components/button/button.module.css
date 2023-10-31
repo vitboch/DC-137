@@ -8,10 +8,13 @@
   cursor: pointer;
   padding: 0.5rem 1.5rem;
   border-radius: var(--border-radius);
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 
-.button.disabled {
+.button.disabled,
+.button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

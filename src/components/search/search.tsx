@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICharacter } from '../../types/types.ts';
 import { useHistory } from '../../hooks';
-
-import cls from './search.module.css';
 import Characters from '../characters/characters.tsx';
 import Button from '../button';
 import Pagination from '../pagination/pagination.tsx';
+import { useDebounce } from '../../hooks/use-debounce.ts';
+import cls from './search.module.css';
 
 type formInputs = {
   name: string;
@@ -15,9 +15,10 @@ type formInputs = {
   gender: string;
 };
 
-export const Search = () => {
+export const Search: React.FC = () => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit, setValue, reset, setFocus } =
@@ -25,7 +26,6 @@ export const Search = () => {
 
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const [suggestions, setSuggestions] = useState<ICharacter[]>([]);
-  const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const { addToHistory } = useHistory();
@@ -34,11 +34,11 @@ export const Search = () => {
     { name, status, gender }: formInputs,
     page: number
   ) => {
+    setIsLoading(true);
     setError(null);
     if (!name && !status && !gender) {
-      setError('Введите хотя бы один параметр поиска');
+      setError('Enter at least one search parameter');
       setCharacters([]);
-      setNotFound(false);
       return;
     }
 
@@ -50,13 +50,13 @@ export const Search = () => {
       const data = await response.json();
       setCount(data.info.count);
       setCharacters(data.results);
-      setNotFound(data.results.length === 0);
     } catch (error) {
-      setError('Произошла ошибка. Пожалуйста, попробуйте еще раз.');
+      setError('An error has occurred. Please try again.');
       setCharacters([]);
       setCount(0);
       setPage(1);
-      setNotFound(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -85,9 +85,16 @@ export const Search = () => {
     addToHistory({ name, status, gender });
   };
 
-  const onChangeSuggestions = (value: string) => {
-    fetchSuggestions(value);
+  const [valueName, setValueName] = useState<string>('');
+  const debouncedValue = useDebounce(valueName, 500);
+
+  const onChangeSuggestions = (event: ChangeEvent<HTMLInputElement>) => {
+    setValueName(event.target.value);
   };
+
+  useEffect(() => {
+    fetchSuggestions(debouncedValue);
+  }, [debouncedValue]);
 
   useEffect(() => {
     setFocus('name');
@@ -111,7 +118,6 @@ export const Search = () => {
   const handleReset = () => {
     reset();
     setCharacters([]);
-    setNotFound(false);
     setError(null);
     navigate('/search');
   };
@@ -134,17 +140,17 @@ export const Search = () => {
   }, []);
 
   return (
-    <>
+    <div className="section__inner">
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className={cls.search__form}>
           <div className={cls.text__field}>
             <input
               autoComplete="off"
-              placeholder="Имя персонажа"
+              placeholder="Characters name"
               type="text"
               defaultValue=""
               {...register('name', {
-                onChange: (e) => onChangeSuggestions(e.target.value)
+                onChange: (e) => onChangeSuggestions(e)
               })}
               id="nameInput"
             />
@@ -161,46 +167,50 @@ export const Search = () => {
             )}
           </div>
           <select defaultValue="" {...register('status')}>
-            <option value="">Статус</option>
-            <option value="alive">Живой</option>
-            <option value="dead">Мертвый</option>
-            <option value="unknown">Неизвестный</option>
+            <option value="">Status</option>
+            <option value="alive">Alive</option>
+            <option value="dead">Dead</option>
+            <option value="unknown">Unknown</option>
           </select>
           <select defaultValue="" {...register('gender')}>
-            <option value="">Пол</option>
-            <option value="male">Мужчина</option>
-            <option value="female">Женщина</option>
-            <option value="genderless">Без пола</option>
-            <option value="unknown">Неизвестно</option>
+            <option value="">Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="genderless">Genderless</option>
+            <option value="unknown">Unknown</option>
           </select>
-          <Button variant={'primary'}>Поиск</Button>
+          <Button variant={'primary'}>Search</Button>
           <Button variant={'danger'} type="button" onClick={handleReset}>
-            Сбросить
+            Reset
           </Button>
         </form>
       </div>
 
       <div className={cls.list}>
-        {error ? (
-          <p>{error}</p>
-        ) : (
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : characters.length > 0 ? (
           <>
-            <Pagination
-              currentPage={page}
-              total={count}
-              limit={20}
-              onPageChange={(page: number) => {
-                const searchParams = new URLSearchParams(location.search);
-                searchParams.set('page', String(page));
-                setPage(page);
-              }}
-            />
+            {count > 20 && (
+              <Pagination
+                currentPage={page}
+                total={count}
+                limit={20}
+                onPageChange={(page: number) => {
+                  const searchParams = new URLSearchParams(location.search);
+                  searchParams.set('page', String(page));
+                  setPage(page);
+                }}
+              />
+            )}
             <Characters characters={characters} />
           </>
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
+          <div>No characters found.</div>
         )}
-        {/*TODO: Не работает, даже если не найдено, появляется ошибка.*/}
-        {notFound && <p>Ничего не найдено!</p>}
       </div>
-    </>
+    </div>
   );
 };

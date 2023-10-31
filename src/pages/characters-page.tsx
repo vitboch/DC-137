@@ -7,7 +7,7 @@ import Loader from '../components/loader';
 import { AppDispatch } from '../store';
 import Pagination from '../components/pagination/pagination.tsx';
 
-export const CharactersPage = () => {
+export const CharactersPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [page, setPage] = useState(1);
 
