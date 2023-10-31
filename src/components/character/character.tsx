@@ -1,24 +1,9 @@
 import React from 'react';
-import { ICharacter } from '../../types/types.ts';
+import { CharacterProps } from '../../types/types.ts';
 import cls from './character.module.css';
 import FavButton from '../fav-button';
 
-interface Props {
-  character: ICharacter;
-}
-// import { useParams } from 'react-router-dom';
-// import { useCharacters } from '../../hooks/use-characters';
-// import { ICharacter } from '../../types/types';
-// import cls from './character.module.css';
-//
-// const Character = () => {
-//   const { id } = useParams<{ id: string }>();
-//   const { characters } = useCharacters();
-//   const character = characters.find(
-//     (character: ICharacter) => character.id === Number(id)
-//   );
-
-const Character: React.FC<Props> = ({
+const Character: React.FC<CharacterProps> = ({
   character: { name, image, id, species, status, gender, origin, location }
 }) => {
   return (

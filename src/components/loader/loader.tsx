@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 
-const Loader = () => {
+const Loader: React.FC = () => {
   useEffect(() => {
     const unmountLoading = gsap.timeline({ paused: true });
     unmountLoading.to(

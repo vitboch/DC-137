@@ -1,6 +1,5 @@
 import { useEffect, ReactNode, MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
-
 import cls from './modal.module.css';
 
 type ModalInnerProps = {

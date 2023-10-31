@@ -1,4 +1,4 @@
-export const UserProfilePic = () => {
+const UserProfilePic: React.FC = () => {
   return (
     <svg
       width="2rem"
@@ -96,3 +96,5 @@ export const UserProfilePic = () => {
     </svg>
   );
 };
+
+export default UserProfilePic;

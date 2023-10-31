@@ -1,5 +1,4 @@
 import { createHashRouter, Outlet } from 'react-router-dom';
-
 import { ErrorPage } from './pages/error-page';
 import { MainPage } from './pages/main-page';
 import { SigninPage } from './pages/signin-page';

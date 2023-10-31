@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useEffect } from 'react';
-import { IFormProps } from '../../types/types';
+import { FC, useEffect, useState } from 'react';
 import { useInput } from '../../hooks';
-import cls from './form.module.css';
-import { useState } from 'react';
 import Button from '../button';
+import { IFormProps } from '../../types/types';
+import cls from './form.module.css';
 
 const Form: FC<IFormProps> = ({ signUp, handleClick, errMessage }) => {
   const email = useInput('', {

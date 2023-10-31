@@ -1,7 +1,6 @@
-import React from 'react';
-import cls from './fav-button.module.css';
 import { useFavorites } from '../../hooks/use-favorites';
 import { useAppSelector } from '../../hooks/redux-hooks';
+import cls from './fav-button.module.css';
 
 const FavButton: React.FC<{ id: number }> = ({ id }) => {
   const {

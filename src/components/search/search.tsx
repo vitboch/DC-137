@@ -1,15 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICharacter } from '../../types/types.ts';
 import { useHistory } from '../../hooks';
-
-import cls from './search.module.css';
 import Characters from '../characters/characters.tsx';
 import Button from '../button';
 import Pagination from '../pagination/pagination.tsx';
 import { useDebounce } from '../../hooks/use-debounce.ts';
+import cls from './search.module.css';
 
 type formInputs = {
   name: string;
@@ -17,7 +15,7 @@ type formInputs = {
   gender: string;
 };
 
-export const Search = () => {
+export const Search: React.FC = () => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
